@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <link rel = "stylesheet" href = "css/accueil.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/accueil.css') }}">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
         <title>Popcorn Palace</title>
     </head>
@@ -16,5 +16,10 @@
             </ul>
         </nav>
         <h1>Popcorn Palace</h1>
+        <ul>
+            {% for title in movies %}
+                <li>{{ title }}</li>
+            {% endfor %}
+        </ul>
     </body>
 </html>

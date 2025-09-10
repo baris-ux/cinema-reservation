@@ -2,8 +2,8 @@ import os, requests, psycopg2
 from dotenv import load_dotenv
 load_dotenv()
 
-TMDB = os.getenv("20b0f2b141e9119105e34d2c3c09e659")
-DB   = os.getenv("postgresql://postgres:root@127.0.0.1:5432/movies")
+TMDB = os.getenv("TMDB_API_KEY")
+DB   = os.getenv("DATABASE_URL")
 
 def img(path, size="w500"):
     return f"https://image.tmdb.org/t/p/{size}{path}" if path else None
@@ -68,4 +68,4 @@ def import_by_title(query: str):
 
 
 if __name__ == "__main__":
-    import_by_title("Inception")  # ← change le titre pour importer d’autres films
+    import_by_title("Star Wars, épisode III - La Revanche des Sith")  # ← change le titre pour importer d’autres films
