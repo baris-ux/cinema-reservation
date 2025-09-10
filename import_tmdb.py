@@ -38,13 +38,34 @@ def upsert_movie(tmdb_id: int):
     print("Import OK →", row)
 
 def import_by_title(query: str):
-    s = requests.get("https://api.themoviedb.org/3/search/movie",
-        params={"api_key": TMDB, "language":"fr-FR", "query": query}).json()
-    results = s.get("results", [])
-    if not results: return print("Aucun résultat")
+    print("DEBUG TMDB_API_KEY present:", bool(TMDB))
+    resp = requests.get(
+        "https://api.themoviedb.org/3/search/movie",
+        params={"api_key": TMDB, "language": "fr-FR", "query": query}
+    )
+    print("DEBUG status:", resp.status_code)
+    try:
+        payload = resp.json()
+    except Exception as e:
+        print("DEBUG invalid JSON:", e, "body:", resp.text[:300])
+        return
+
+    # Si TMDb renvoie une erreur, elle est dans status_code/status_message
+    if payload.get("success") is False or ("status_code" in payload and "results" not in payload):
+        print("TMDb ERROR:", payload)
+        return
+
+    results = payload.get("results", [])
+    print("DEBUG nb results:", len(results))
+    if not results:
+        print("DEBUG body:", str(payload)[:400])
+        print("Aucun résultat")
+        return
+
     first = results[0]
     print(f"Sélection: {first['title']} ({first.get('release_date','?')}) id={first['id']}")
     upsert_movie(first["id"])
+
 
 if __name__ == "__main__":
     import_by_title("Inception")  # ← change le titre pour importer d’autres films
