@@ -2,8 +2,8 @@ import os, requests, psycopg2
 from dotenv import load_dotenv
 load_dotenv()
 
-TMDB = os.getenv("TMDB_API_KEY")
-DB   = os.getenv("DATABASE_URL")
+TMDB = os.getenv("20b0f2b141e9119105e34d2c3c09e659")
+DB   = os.getenv("postgresql://postgres:root@127.0.0.1:5432/movies")
 
 def img(path, size="w500"):
     return f"https://image.tmdb.org/t/p/{size}{path}" if path else None
