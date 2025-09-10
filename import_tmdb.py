@@ -1,0 +1,50 @@
+import os, requests, psycopg2
+from dotenv import load_dotenv
+load_dotenv()
+
+TMDB = os.getenv("TMDB_API_KEY")
+DB   = os.getenv("DATABASE_URL")
+
+def img(path, size="w500"):
+    return f"https://image.tmdb.org/t/p/{size}{path}" if path else None
+
+def upsert_movie(tmdb_id: int):
+    m = requests.get(
+        f"https://api.themoviedb.org/3/movie/{tmdb_id}",
+        params={"api_key": TMDB, "language": "fr-FR"}
+    ).json()
+    genres   = [g["name"] for g in m.get("genres", [])]
+    poster   = img(m.get("poster_path"), "w500")
+    backdrop = img(m.get("backdrop_path"), "w780")
+
+    conn = psycopg2.connect(DB)
+    cur = conn.cursor()
+    cur.execute("""
+      INSERT INTO movies (tmdb_id, title, overview, release_date, runtime, poster_url, backdrop_url, genres)
+      VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
+      ON CONFLICT (tmdb_id) DO UPDATE SET
+        title=EXCLUDED.title,
+        overview=EXCLUDED.overview,
+        release_date=EXCLUDED.release_date,
+        runtime=EXCLUDED.runtime,
+        poster_url=EXCLUDED.poster_url,
+        backdrop_url=EXCLUDED.backdrop_url,
+        genres=EXCLUDED.genres
+      RETURNING id, title;
+    """, (m["id"], m.get("title"), m.get("overview"), m.get("release_date"),
+          m.get("runtime"), poster, backdrop, genres))
+    row = cur.fetchone()
+    conn.commit(); cur.close(); conn.close()
+    print("Import OK →", row)
+
+def import_by_title(query: str):
+    s = requests.get("https://api.themoviedb.org/3/search/movie",
+        params={"api_key": TMDB, "language":"fr-FR", "query": query}).json()
+    results = s.get("results", [])
+    if not results: return print("Aucun résultat")
+    first = results[0]
+    print(f"Sélection: {first['title']} ({first.get('release_date','?')}) id={first['id']}")
+    upsert_movie(first["id"])
+
+if __name__ == "__main__":
+    import_by_title("Inception")  # ← change le titre pour importer d’autres films
