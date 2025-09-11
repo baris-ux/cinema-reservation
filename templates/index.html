@@ -16,10 +16,19 @@
             </ul>
         </nav>
         <h1>Popcorn Palace</h1>
-        <ul>
-            {% for title in movies %}
-                <li>{{ title }}</li>
+
+        <table>
+            <tr>
+                <th>Affiche</th>
+                <th>Titre</th>
+            </tr>
+            {% for title, poster_url in movies %}
+            <tr>
+                <td><img src="{{ poster_url }}" alt="Affiche de {{ title }}" width="100"></td>
+                <td>{{ title }}</td>
+            </tr>
             {% endfor %}
-        </ul>
+        </table>
+
     </body>
 </html>

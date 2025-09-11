@@ -68,4 +68,4 @@ def import_by_title(query: str):
 
 
 if __name__ == "__main__":
-    import_by_title("Star Wars, épisode III - La Revanche des Sith")  # ← change le titre pour importer d’autres films
+    import_by_title("Dune")  # ← change le titre pour importer d’autres films
