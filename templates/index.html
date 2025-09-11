@@ -18,10 +18,11 @@
         <h1>Popcorn Palace</h1>
 
         <div class="films">
-            {% for title, poster_url in movies %}
+            {% for title, poster_url, genres in movies %}
             <div class="film">
                 <img src="{{ poster_url }}" alt="Affiche de {{ title }}" width="150">
                 <p>{{ title }}</p>
+                <p>Genre : {{ ", ".join(genres) }}</p>
             </div>
             {% endfor %}
         </div>
