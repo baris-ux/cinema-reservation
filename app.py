@@ -16,5 +16,9 @@ def index():
     movies = get_movies()
     return render_template("index.html", movies=movies)
 
+@app.route("/contact")
+def contact():
+    return render_template("contact.html")
+
 if __name__ == "__main__":
     app.run(debug=True)

@@ -12,23 +12,20 @@
                 <li><a class="active" href="#">Accueil</a></li>
                 <li><a href="#">Films</a></li>
                 <li><a href="#">Réservations</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact</a></li>
             </ul>
         </nav>
         <h1>Popcorn Palace</h1>
 
-        <table>
-            <tr>
-                <th>Affiche</th>
-                <th>Titre</th>
-            </tr>
+        <div class="films">
             {% for title, poster_url in movies %}
-            <tr>
-                <td><img src="{{ poster_url }}" alt="Affiche de {{ title }}" width="100"></td>
-                <td>{{ title }}</td>
-            </tr>
+            <div class="film">
+                <img src="{{ poster_url }}" alt="Affiche de {{ title }}" width="150">
+                <p>{{ title }}</p>
+            </div>
             {% endfor %}
-        </table>
+        </div>
+
 
     </body>
 </html>
