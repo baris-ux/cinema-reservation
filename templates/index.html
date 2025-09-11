@@ -3,6 +3,8 @@
     <head>
         <meta charset="utf-8">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/accueil.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/caroussel.css') }}">
+
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
         <title>Popcorn Palace</title>
     </head>
@@ -15,18 +17,38 @@
                 <li><a href="{{ url_for('contact') }}">Contact</a></li>
             </ul>
         </nav>
-        <h1>Popcorn Palace</h1>
+
+        <div class="slideshow-container">
+        {% for m in movies %}
+        <div class="mySlides fade">
+            <div class="numbertext">{{ loop.index }} / {{ movies|length }}</div>
+            <img src="{{ m.backdrop_url }}" style="width:100%">
+        </div>
+        {% endfor %}
+
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+        <br>
+
+        <div style="text-align:center">
+            {% for m in movies %}
+                <span class="dot" onclick="currentSlide( {{loop.index }})"></span>
+            {% endfor %}
+        </div>
+
 
         <div class="films">
-            {% for title, poster_url, genres in movies %}
+            {% for m in movies %}
             <div class="film">
-                <img src="{{ poster_url }}" alt="Affiche de {{ title }}" width="150">
-                <p>{{ title }}</p>
-                <p>Genre : {{ ", ".join(genres) }}</p>
+                <img src="{{ m.poster_url }}" alt="Affiche de {{ m.title }}" width="150">
+                <p>{{ m.title }}</p>
+                <p>Genre : {{ ", ".join(m.genres) }}</p>
             </div>
             {% endfor %}
         </div>
 
 
+        <script src = "{{ url_for('static', filename='js/caroussel.js')}}"></script>
     </body>
 </html>
