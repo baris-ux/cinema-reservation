@@ -21,7 +21,6 @@
         <div class="slideshow-container">
         {% for m in movies %}
         <div class="mySlides fade">
-            <div class="numbertext">{{ loop.index }} / {{ movies|length }}</div>
             <img src="{{ m.backdrop_url }}" style="width:100%">
         </div>
         {% endfor %}
@@ -41,7 +40,9 @@
         <div class="films">
             {% for m in movies %}
             <div class="film">
-                <img src="{{ m.poster_url }}" alt="Affiche de {{ m.title }}" width="150">
+                <a href = "{{ url_for('film_detail', film_id=m.id )}}">
+                    <img src="{{ m.poster_url }}" alt="Affiche de {{ m.title }}" width="150">
+                </a>
                 <p>{{ m.title }}</p>
                 <p>Genre : {{ ", ".join(m.genres) }}</p>
             </div>
