@@ -38,10 +38,21 @@
         </div>
 
         <div class = "bouton_trie_seance">
-            <button>date</button>
-            <button>langue</button>
-            <button>cinéma</button>
-            <button>format</button>
+            <select name="cinema">
+                <option>cinéma</option>
+            </select>
+
+            <select name="date-seance">
+                <option>date séance</option>
+            </select>
+
+            <select name="langue">
+                <option>langue</option>
+            </select>
+
+            <select name="format-projection">
+                <option>format</option>
+            </select>
         </div>
 
         <script src = "{{ url_for('static', filename='js/film.js')}}"></script>
