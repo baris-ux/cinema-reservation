@@ -38,8 +38,12 @@
         </div>
 
         <div class = "bouton_trie_seance">
+            
             <select name="cinema">
-                <option>cinéma</option>
+            <option value="">Tous les cinémas</option>
+            {% for c in cinemas %}
+                <option value="{{ c }}">{{ c }}</option>
+            {% endfor %}
             </select>
 
             <select name="date-seance">

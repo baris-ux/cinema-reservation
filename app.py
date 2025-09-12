@@ -58,7 +58,29 @@ def film_detail(film_id):
             "trailer_youtube_id" : row[8],
         }
 
-    return render_template("film.html", film=film)
+        cur.execute('SELECT DISTINCT cinema FROM seance WHERE movie_id = %s ORDER BY cinema;', (film_id,))
+        cinemas = [r[0] for r in cur.fetchall()]
+
+        cur.execute('SELECT DISTINCT date_seance FROM seance WHERE movie_id = %s ORDER BY date_seance;', (film_id,))
+        dates = [r[0] for r in cur.fetchall()]
+
+        cur.execute('SELECT DISTINCT langue FROM seance WHERE movie_id = %s ORDER BY langue;', (film_id,))
+        langues = [r[0] for r in cur.fetchall()]
+
+        
+        cur.execute('SELECT DISTINCT format_projection FROM seance WHERE movie_id = %s ORDER BY format_projection;', (film_id,))
+        formats = [r[0] for r in cur.fetchall()]
+
+
+    return render_template(
+        "film.html",
+        film=film,
+        cinemas=cinemas,
+        dates=dates,
+        langues=langues,
+        formats=formats
+        )
+
 
 if __name__ == "__main__":
     app.run(debug=True)
