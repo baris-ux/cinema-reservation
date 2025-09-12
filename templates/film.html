@@ -10,6 +10,17 @@
 
             <div class = "poster">
                 <img src = "{{ film.poster_url }}" />
+                <div id = "play-button">▶</div>
+            </div>
+
+            <div id="overlay"></div>
+            
+            <!-- container pour le trailer -->
+            <div id = "trailerContainer">
+                <iframe 
+                src = "https://www.youtube.com/embed/{{ film.trailer_youtube_id }}"
+                frameborder="0"
+                ></iframe>
             </div>
 
             <div class = "details">
@@ -32,5 +43,7 @@
             <button>cinéma</button>
             <button>format</button>
         </div>
+
+        <script src = "{{ url_for('static', filename='js/film.js')}}"></script>
     </body>
 </html>

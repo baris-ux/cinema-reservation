@@ -37,7 +37,7 @@ def contact():
 def film_detail(film_id):
     with psycopg2.connect(DB_URL) as conn, conn.cursor() as cur:
         cur.execute("""
-            SELECT id, title, poster_url, backdrop_url, genres, overview, runtime, release_date
+            SELECT id, title, poster_url, backdrop_url, genres, overview, runtime, release_date, trailer_youtube_id
             FROM movies
             WHERE id = %s;
         """, (film_id,))
@@ -55,6 +55,7 @@ def film_detail(film_id):
             "overview": row[5] if len(row) > 5 and row[5] is not None else "Pas de description disponible.",
             "runtime" : row[6],
             "release_date" : row[7],
+            "trailer_youtube_id" : row[8],
         }
 
     return render_template("film.html", film=film)

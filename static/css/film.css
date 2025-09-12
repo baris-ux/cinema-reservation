@@ -12,8 +12,13 @@ body{
   border-radius: 8px;
   border : 5px;
   margin : 10px;
+  transition: filter 0.4s ease;
 }
 
+.poster:hover img {
+    filter: brightness(30%);
+    cursor: pointer;
+}
 
 .details{
     display:flex;
@@ -48,4 +53,59 @@ body{
     border-radius: 5px;
     border : none;
     cursor : pointer;
+}
+
+
+/* ----------------------------- play button ---------------------------- */
+
+.poster{
+    position: relative;
+    display: inline-block;
+}
+
+.poster #play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 64px;        
+    color: white;
+    opacity: 0; 
+    transition: opacity 0.3s ease;
+    text-shadow: 0 2px 12px rgba(0,0,0,.6);
+}
+
+.poster:hover #play-button {
+  opacity: 1; 
+  cursor : pointer       
+}
+
+/* ---------------------------------- container film ------------------------ */
+
+/* Overlay noir semi-transparent */
+#overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.80);
+    z-index: 999; 
+}
+
+#trailerContainer {
+    display: none;
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: black;
+    padding: 10px;
+    border-radius: 8px;
+    z-index: 1000; /* au-dessus de l’overlay */
+}
+
+#trailerContainer iframe {
+    width: 960px;
+    height: 540px;
+    border-radius: 8px;
 }

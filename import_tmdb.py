@@ -17,11 +17,13 @@ def upsert_movie(tmdb_id: int):
     poster   = img(m.get("poster_path"), "w500")
     backdrop = img(m.get("backdrop_path"), "w780")
 
+    trailer_key = get_trailer_key(tmdb_id)
+
     conn = psycopg2.connect(DB)
     cur = conn.cursor()
     cur.execute("""
-      INSERT INTO movies (tmdb_id, title, overview, release_date, runtime, poster_url, backdrop_url, genres)
-      VALUES (%s,%s,%s,%s,%s,%s,%s,%s)
+      INSERT INTO movies (tmdb_id, title, overview, release_date, runtime, poster_url, backdrop_url, genres, trailer_youtube_id)
+      VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)
       ON CONFLICT (tmdb_id) DO UPDATE SET
         title=EXCLUDED.title,
         overview=EXCLUDED.overview,
@@ -29,15 +31,16 @@ def upsert_movie(tmdb_id: int):
         runtime=EXCLUDED.runtime,
         poster_url=EXCLUDED.poster_url,
         backdrop_url=EXCLUDED.backdrop_url,
-        genres=EXCLUDED.genres
-      RETURNING id, title;
+        genres=EXCLUDED.genres,
+        trailer_youtube_id=EXCLUDED.trailer_youtube_id
+      RETURNING id, title, trailer_youtube_id;
     """, (m["id"], m.get("title"), m.get("overview"), m.get("release_date"),
-          m.get("runtime"), poster, backdrop, genres))
+          m.get("runtime"), poster, backdrop, genres, trailer_key))
     row = cur.fetchone()
     conn.commit(); cur.close(); conn.close()
     print("Import OK →", row)
 
-def get_trailer_url(tmdb_id: int, lang="fr-FR"):
+def get_trailer_key(tmdb_id: int, lang="fr-FR"):
     url = f"https://api.themoviedb.org/3/movie/{tmdb_id}/videos"
     resp = requests.get(url, params={"api_key": TMDB, "language": lang})
     data = resp.json()
@@ -45,7 +48,7 @@ def get_trailer_url(tmdb_id: int, lang="fr-FR"):
 
     for v in videos:
         if v.get("site") == "YouTube" and v.get("type") == "Trailer":
-            return f"https://www.youtube.com/watch?v={v['key']}"
+            return v['key']
 
 def import_by_title(query: str):
     print("DEBUG TMDB_API_KEY present:", bool(TMDB))
@@ -78,4 +81,4 @@ def import_by_title(query: str):
 
 
 if __name__ == "__main__":
-    import_by_title("Demon Slayer")  # entrer le nom du film
+    import_by_title("Superman")  # entrer le nom du film
