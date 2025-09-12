@@ -46,7 +46,7 @@ body{
 }
 
 
-.bouton_trie_seance button{
+.bouton_trie_seance select{
     flex: 1;
     background-color: rgb(170, 184, 211);
     padding : 30px 100px;
