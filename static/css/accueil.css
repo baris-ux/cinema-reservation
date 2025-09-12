@@ -62,3 +62,54 @@ ul li a.active {
 .film img:hover{
     filter : brightness(40%)
 }
+
+
+/* ---------------------------------- tarifs ------------------------- */
+
+#tarifs {
+  max-width: 600px;
+  margin: 2rem auto;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#tarifs h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+#tarifs table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.6);
+}
+
+#tarifs thead {
+  background-color: #4a90e2;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+#tarifs th, 
+#tarifs td {
+  padding: 14px 20px;
+  text-align: left;
+}
+
+#tarifs tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+#tarifs tbody tr:hover {
+  background-color: #eef6ff;
+  transition: background 0.3s ease;
+}
+
+#tarifs td:last-child {
+  font-weight: bold;
+  color: #2c3e50;
+}
