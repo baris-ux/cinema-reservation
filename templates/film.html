@@ -2,9 +2,35 @@
 <html>
     <head>
         <meta charset = "utf-8">
+        <link rel = "stylesheet" href = "{{ url_for('static', filename='css/film.css') }}"/>
         <title></title>
     </head>
     <body>
-        <h1>{{ film.title }}</h1>
+        <div class = "film_detail">
+
+            <div class = "poster">
+                <img src = "{{ film.poster_url }}" />
+            </div>
+
+            <div class = "details">
+                <div class = "resume">
+                    <h1>{{ film.title }}</h1>
+                    <p>{{ film.overview }}</p>
+                </div>
+            
+                <div class = "info_supplementaire">
+                    <p>Durée : {{ film.runtime}} minutes</p>
+                    <p>Genres : {{ ", ".join(film.genres) }}</p>
+                    <p>date de sortie : {{ film.release_date.strftime ("%d/%m/%Y") }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class = "bouton_trie_seance">
+            <button>date</button>
+            <button>langue</button>
+            <button>cinéma</button>
+            <button>format</button>
+        </div>
     </body>
 </html>

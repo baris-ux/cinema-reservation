@@ -37,6 +37,16 @@ def upsert_movie(tmdb_id: int):
     conn.commit(); cur.close(); conn.close()
     print("Import OK →", row)
 
+def get_trailer_url(tmdb_id: int, lang="fr-FR"):
+    url = f"https://api.themoviedb.org/3/movie/{tmdb_id}/videos"
+    resp = requests.get(url, params={"api_key": TMDB, "language": lang})
+    data = resp.json()
+    videos = data.get("results", [])
+
+    for v in videos:
+        if v.get("site") == "YouTube" and v.get("type") == "Trailer":
+            return f"https://www.youtube.com/watch?v={v['key']}"
+
 def import_by_title(query: str):
     print("DEBUG TMDB_API_KEY present:", bool(TMDB))
     resp = requests.get(
