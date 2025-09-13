@@ -3,121 +3,129 @@
     <head>
         <meta charset="utf-8">
         <title>Popcorn Palace</title>
-        <meta name = "viewport" content = "width-device-width, intial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <link rel="stylesheet" href="{{ url_for('static', filename='css/accueil.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/caroussel.css') }}">
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     </head>
     <body>
-        <nav>
-            <ul>
-                <li><a class="active" href="#">Accueil</a></li>
-                <li><a href="#">Films</a></li>
-                <li><a href="#">Réservations</a></li>
-                <li><a href="#tarifs">nos tarifs</a></li>
-            </ul>
-        </nav>
 
-        <div class="slideshow-container">
-        {% for m in movies %}
-        <div class="mySlides fade">
-            <img src="{{ m.backdrop_url }}" style="width:100%">
-        </div>
-        {% endfor %}
+        <header>
+            <nav>
+                <ul>
+                    <li><a class="active" href="#">Accueil</a></li>
+                    <li><a href="#">Films</a></li>
+                    <li><a href="#">Réservations</a></li>
+                    <li><a href="#tarifs">nos tarifs</a></li>
+                </ul>
+            </nav>
+        </header>
 
-        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1)">&#10095;</a>
-        </div>
-        <br>
-
-        <div style="text-align:center">
+        <main>
+            <div class="slideshow-container">
             {% for m in movies %}
-                <span class="dot" onclick="currentSlide( {{loop.index }})"></span>
-            {% endfor %}
-        </div>
-
-
-        <div class="films">
-            {% for m in movies %}
-            <div class="film">
-                <a href = "{{ url_for('film_detail', film_id=m.id )}}">
-                    <img src="{{ m.poster_url }}" alt="Affiche de {{ m.title }}" width="150">
-                </a>
-                <p>{{ m.title }}</p>
+            <div class="mySlides fade">
+                <img src="{{ m.backdrop_url }}" style="width:100%">
             </div>
             {% endfor %}
-        </div>
 
-
-        <section id="tarifs">
-            <h2>Nos Tarifs</h2>
-            <table>
-                <thead>
-                <tr>
-                    <th>Catégorie</th>
-                    <th>Prix</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Plein tarif</td>
-                    <td>9,00 €</td>
-                </tr>
-                <tr>
-                    <td>Étudiant (-26 ans)</td>
-                    <td>7,50 €</td>
-                </tr>
-                <tr>
-                    <td>Enfant (-14 ans)</td>
-                    <td>6,00 €</td>
-                </tr>
-                <tr>
-                    <td>Senior (65+)</td>
-                    <td>7,00 €</td>
-                </tr>
-                <tr>
-                    <td>Carte 10 places</td>
-                    <td>70,00 €</td>
-                </tr>
-                </tbody>
-            </table>
-        </section>
-
-        <section class = "snack">
-            <img src = "{{ url_for('static', filename='img/pop_corn.png')}}">
-            <div class = "snack-text">
-                <h2>Snack & Boissons</h2>
-                <p>Fait péter le pop !, profitez pleinement de vos séance avec nos snack et boissons à prix avantageux !</p>
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
             </div>
-        </section>
+            <br>
 
-
-        <section id="formats" aria-labelledby="formats-title">
-
-            <div class="formats-grid">
-                <article class="format-card">
-                    <img src="{{ url_for('static', filename='img/4K_image.png') }}" alt="Logo 4K Laser" loading="lazy" width="80" height="80">
-                    <h3>4K Laser</h3>
-                    <p>Une projection d’une clarté exceptionnelle grâce à la technologie laser : image ultra-nette, couleurs éclatantes et noirs profonds pour une immersion totale.</p>
-                </article>
-
-                <article class="format-card">
-                    <img src="{{ url_for('static', filename='img/4DX.png') }}" alt="Logo 4K Laser" loading="lazy" width="80" height="80">
-                    <h3>4DXr</h3>
-                    <p>Vivez votre film avec tous vos sens : mouvements, vent, pluie et effets spéciaux en salle.</p>
-                </article>
-
-                
-                <article class="format-card">
-                    <img src="{{ url_for('static', filename='img/imax.png') }}" alt="Logo 4K Laser" loading="lazy" width="80" height="80">
-                    <h3>IMAX</h3>
-                    <p>Vivez votre film avec tous vos sens : mouvements, vent, pluie et effets spéciaux en salle.</p>
-                </article>
+            <div style="text-align:center">
+                {% for m in movies %}
+                    <span class="dot" onclick="currentSlide( {{loop.index }})"></span>
+                {% endfor %}
             </div>
 
-        </section>
-        
-        <script src = "{{ url_for('static', filename='js/caroussel.js')}}"></script>
+
+            <div class="films">
+                {% for m in movies %}
+                <div class="film">
+                    <a href = "{{ url_for('film_detail', film_id=m.id )}}">
+                        <img src="{{ m.poster_url }}" alt="Affiche de {{ m.title }}" width="150">
+                    </a>
+                    <p>{{ m.title }}</p>
+                </div>
+                {% endfor %}
+            </div>
+
+
+            <section id="tarifs">
+                <h2>Nos Tarifs</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Catégorie</th>
+                        <th>Prix</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Plein tarif</td>
+                        <td>9,00 €</td>
+                    </tr>
+                    <tr>
+                        <td>Étudiant (-26 ans)</td>
+                        <td>7,50 €</td>
+                    </tr>
+                    <tr>
+                        <td>Enfant (-14 ans)</td>
+                        <td>6,00 €</td>
+                    </tr>
+                    <tr>
+                        <td>Senior (65+)</td>
+                        <td>7,00 €</td>
+                    </tr>
+                    <tr>
+                        <td>Carte 10 places</td>
+                        <td>70,00 €</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class = "snack">
+                <img src = "{{ url_for('static', filename='img/pop_corn.png')}}">
+                <div class = "snack-text">
+                    <h2>Snack & Boissons</h2>
+                    <p>Fait péter le pop !, profitez pleinement de vos séance avec nos snack et boissons à prix avantageux !</p>
+                </div>
+            </section>
+
+
+            <section id="formats" aria-labelledby="formats-title">
+
+                <div class="formats-grid">
+                    <article class="format-card">
+                        <img src="{{ url_for('static', filename='img/4K_image.png') }}" alt="Logo 4K Laser" loading="lazy" width="80" height="80">
+                        <h3>4K Laser</h3>
+                        <p>Une projection d’une clarté exceptionnelle grâce à la technologie laser : image ultra-nette, couleurs éclatantes et noirs profonds pour une immersion totale.</p>
+                    </article>
+
+                    <article class="format-card">
+                        <img src="{{ url_for('static', filename='img/4DX.png') }}" alt="Logo 4K Laser" loading="lazy" width="80" height="80">
+                        <h3>4DXr</h3>
+                        <p>Vivez votre film avec tous vos sens : mouvements, vent, pluie et effets spéciaux en salle.</p>
+                    </article>
+
+                    
+                    <article class="format-card">
+                        <img src="{{ url_for('static', filename='img/imax.png') }}" alt="Logo 4K Laser" loading="lazy" width="80" height="80">
+                        <h3>IMAX</h3>
+                        <p>Vivez votre film avec tous vos sens : mouvements, vent, pluie et effets spéciaux en salle.</p>
+                    </article>
+                </div>
+
+            </section>
+
+        </main>
+
+        <footer>
+            <script src = "{{ url_for('static', filename='js/caroussel.js')}}"></script>
+        </footer>
     </body>
 </html>
