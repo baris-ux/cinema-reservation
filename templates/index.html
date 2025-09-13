@@ -86,5 +86,29 @@
 
 
         <script src = "{{ url_for('static', filename='js/caroussel.js')}}"></script>
+
+        <section class = "snack">
+            <img src = "{{ url_for('static', filename='img/pop_corn.png')}}">
+            <div class = "snack-text">
+                <h2>Snack & Boissons</h2>
+                <p>Fait péter le pop !, profitez pleinement de vos séance avec nos snack et boissons à prix avantageux !</p>
+            </div>
+        </section>
+
+
+        <section id="formats" aria-labelledby="formats-title">
+        <h2 id="formats-title">Formats de projection</h2>
+
+        <div class="formats-grid">
+            <article class="format-card">
+                <img src="{{ url_for('static', filename='img/4K_image.png') }}" alt="Logo 4K Laser" loading="lazy" width="80" height="80">
+                <h3>4K Laser</h3>
+                <p>Une projection d’une clarté exceptionnelle grâce à la technologie laser : image ultra-nette, couleurs éclatantes et noirs profonds pour une immersion totale.</p>
+            </article>
+        </div>
+        
+        </section>
+
+
     </body>
 </html>
