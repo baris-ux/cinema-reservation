@@ -82,7 +82,6 @@ body{
 
 /* ---------------------------------- container film ------------------------ */
 
-/* Overlay noir semi-transparent */
 #overlay {
     display: none;
     position: fixed;
