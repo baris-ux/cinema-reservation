@@ -174,3 +174,46 @@ ul li a.active {
   width : 300px;
   height : 300px;
 }
+
+
+/* ---------------------------- horaire ------------------------ */
+
+footer{
+  background-color: #1d1d1d;
+  padding: 30px;
+}
+
+.horaire table {
+  border-collapse: separate; 
+  border-spacing: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 0 auto; 
+  width: 70%; 
+  color : white;     
+} 
+
+.horaire td, 
+.horaire th {
+  background-color: #fdfdfd;
+  border-bottom: 1px solid #ffffff; /* ligne horizontale */
+  padding: 8px 16px;             
+  text-align: center;
+  color : black;
+  
+}
+
+.horaire tr:last-child td {
+  border-bottom: none;
+}
+
+
+.horaire tr:nth-child(odd) td{
+  background-color: #fdfdfd;
+  color : rgb(0, 0, 0);
+}
+
+.horaire tr:nth-child(even) td {
+  background-color: #e6e6e6; /* gris un peu plus foncé */
+  color: #111;
+}
