@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
         <meta charset="utf-8">
+        <title>Popcorn Palace</title>
+        <meta name = "viewport" content = "width-device-width, intial-scale=1.0">
+
         <link rel="stylesheet" href="{{ url_for('static', filename='css/accueil.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/caroussel.css') }}">
-
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-        <title>Popcorn Palace</title>
     </head>
     <body>
         <nav>
@@ -83,10 +84,6 @@
             </table>
         </section>
 
-
-
-        <script src = "{{ url_for('static', filename='js/caroussel.js')}}"></script>
-
         <section class = "snack">
             <img src = "{{ url_for('static', filename='img/pop_corn.png')}}">
             <div class = "snack-text">
@@ -120,7 +117,7 @@
             </div>
 
         </section>
-
-
+        
+        <script src = "{{ url_for('static', filename='js/caroussel.js')}}"></script>
     </body>
 </html>
